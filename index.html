@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Kids Flash Cards</title>
+
+<style>
+body {
+  font-family: Arial;
+  text-align: center;
+  background: #f5f7fb;
+}
+
+.card {
+  width: 260px;
+  height: 160px;
+  background: white;
+  margin: 40px auto;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,.2);
+}
+
+button, select {
+  padding: 10px;
+  font-size: 16px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Kids Flash Cards</h2>
+
+<select id="age" onchange="resetDeck()">
+  <option value="4">Age 4</option>
+  <option value="5">Age 5</option>
+  <option value="6" selected>Age 6</option>
+  <option value="7">Age 7</option>
+</select>
+
+<div class="card" onclick="flipCard()" id="card">CAT</div>
+
+<button onclick="next()">Next</button>
+
+<script>
+
+const words = {
+
+4: [
+"cat","bat","rat","hat","mat","sun","run","fun","pen","hen","pig","dig","big","wig","top","hop","mop",
+"cup","bus","bed","red","fox","box","jam","ram","van","fan","man","pan","bug","rug","log","fog","net",
+"jet","web","yak","zip","lip","sip","kid","hid","sit","fit","bit","pit","dot","pot","hot","not","cot",
+"cap","map","tap","lap","nap","dad","mom","toy","boy","day","say","pay","bay","car","jar","far","bar",
+"cow","now","how","wow","egg","leg","peg","tag","rag","wag","mud","bud","hug","tug","pup","cub"
+],
+
+5: [
+"frog","fish","duck","moon","ball","leaf","tree","ship","milk","sand","bell","star","cake","sock","nest",
+"goat","pony","ring","king","wing","road","rain","snow","book","look","cook","hand","foot","nose","toes",
+"lamp","desk","chair","plant","stone","clap","snap","flag","drum","mask","tail","beak","seed","boat","coat",
+"pear","peach","plum","corn","rice","soup","bike","kite","jump","slide","swing","brush","smile","laugh",
+"cloud","storm","grass","beach","shell","crab","tiger","zebra","panda","koala","camel","horse","sheep",
+"goose","mouse","house","spoon","plate","clock","watch","shirt","pants","shoes","train","truck","plane"
+],
+
+6: [
+"shop","mop","dig","book","frog","smile","snake","plane","train","chair","bread","drink","happy","sad",
+"angry","quiet","loud","clean","dirty","fast","slow","light","heavy","green","yellow","purple","orange",
+"circle","square","number","letter","paper","pencil","eraser","school","teacher","friend","family","baby",
+"brother","sister","mother","father","garden","flower","butter","cheese","pizza","noodle","burger","apple",
+"banana","grapes","mango","carrot","potato","tomato","window","mirror","pillow","blanket","pocket","button",
+"basket","market","rocket","ladder","hammer","bucket","ticket","helmet","jacket","painter","doctor","nurse",
+"police","farmer","driver","player","runner","swimmer","reader","writer","builder","helper","climber"
+],
+
+7: [
+"animal","planet","rocket","traffic","station","picture","computer","battery","holiday","library","airport",
+"mountain","river","forest","desert","island","puzzle","problem","answer","teacher","student","subject",
+"science","history","english","drawing","painting","singing","dancing","playing","reading","writing","coding",
+"building","thinking","learning","sharing","helping","morning","evening","weather","thunder","lightning",
+"rainbow","blanket","kitchen","bedroom","bathroom","garage","window","curtain","grocery","market","wallet",
+"backpack","lunchbox","football","cricket","badminton","swimming","cycling","skipping","jumping","running",
+"exercise","healthy","hungry","tired","excited","curious","brave","honest","kindness","respect","freedom",
+"holiday","journey","adventure","discover","explore","invent","imagine","create","improve","practice"
+]
+
+};
+
+let currentDeck = [];
+let currentWord = "";
+let flipped = false;
+
+function shuffle(arr) {
+  return arr.sort(() => Math.random() - 0.5);
+}
+
+function speak(text) {
+  const u = new SpeechSynthesisUtterance(text);
+  u.rate = 0.8;
+  speechSynthesis.speak(u);
+}
+
+function next() {
+  if (currentDeck.length === 0) resetDeck();
+  currentWord = currentDeck.pop();
+  flipped = false;
+  document.getElementById("card").innerHTML = currentWord.toUpperCase();
+}
+
+function flipCard() {
+  if (!flipped) speak(currentWord);
+  flipped = true;
+}
+
+function resetDeck() {
+  const age = document.getElementById("age").value;
+  currentDeck = shuffle([...words[age]]);
+  next();
+}
+
+resetDeck();
+
+</script>
+
+</body>
+</html>
