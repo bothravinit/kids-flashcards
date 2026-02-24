@@ -10,6 +10,16 @@ Built with plain HTML + CSS + JavaScript — no backend required.
 
 ---
 
+## ▶ Try it Live
+
+Quick demo (hosted on GitHub Pages):
+
+👉 https://bothravinit.github.io/kids-flashcards/
+
+(Open on mobile or desktop.)
+
+---
+
 ## ✨ Features
 
 - 👶 Age selector (4, 5, 6, 7)
